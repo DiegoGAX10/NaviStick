@@ -3,33 +3,14 @@
 #include <WebServer.h>
 #include <ArduinoJson.h>
 #include <NewPing.h>
-
-// ===== CONFIGURACIÓN WiFi =====
-const char* ssid = "Laboratorios_ITZ";
-const char* password = "itzacatepec";
+#include "config.h"  // Archivo de configuración
 
 // ===== CONFIGURACIÓN SERVIDORES =====
-WebServer server(80);              // Servidor HTTP en puerto 80
-WebSocketsServer webSocket(81);    // WebSocket en puerto 81
+WebServer server(HTTP_PORT);              // Servidor HTTP
+WebSocketsServer webSocket(WEBSOCKET_PORT);    // WebSocket
 
-// ===== PINES DE SENSORES =====
-// Sensor Ultrasónico HC-SR04
-#define TRIGGER_PIN  5
-#define ECHO_PIN     18
-#define MAX_DISTANCE 400
+// ===== INICIALIZACIÓN DE SENSORES =====
 NewPing ultrasonic(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
-
-// Sensor ToF (I2C)
-// SCL -> Pin 22, SDA -> Pin 21
-
-// Motor Vibrador
-#define VIBRATOR_PIN 4
-
-// GPS (Serial2)
-// RX -> Pin 16, TX -> Pin 17
-
-// IMU/Acelerómetro (I2C)
-// SCL -> Pin 22, SDA -> Pin 21
 
 // ===== VARIABLES GLOBALES =====
 float ultrasonicDistance = 0;
@@ -55,7 +36,7 @@ unsigned long startTime;
 
 // ===== SETUP =====
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(SERIAL_BAUD);
   startTime = millis();
   
   // Configurar pines
@@ -90,7 +71,7 @@ void loop() {
   // Actualizar vibración
   updateVibration();
   
-  delay(200); // 5 lecturas por segundo
+  delay(DATA_SEND_INTERVAL); // Configurable en config.h
 }
 
 // ===== CONEXIÓN WiFi =====
@@ -110,10 +91,10 @@ void connectWiFi() {
 // ===== INICIALIZAR SENSORES =====
 void initSensors() {
   // Inicializar I2C para ToF e IMU
-  Wire.begin(21, 22); // SDA, SCL
+  Wire.begin(I2C_SDA_PIN, I2C_SCL_PIN);
   
   // Inicializar GPS
-  Serial2.begin(9600, SERIAL_8N1, 16, 17);
+  Serial2.begin(9600, SERIAL_8N1, GPS_RX_PIN, GPS_TX_PIN);
   
   // Aquí inicializarías las librerías específicas de tus sensores
   // Por ejemplo: vl53l0x.init(), mpu6050.begin(), etc.
