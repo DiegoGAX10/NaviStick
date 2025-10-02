@@ -5,8 +5,8 @@
 #include <NewPing.h>
 
 // ===== CONFIGURACIÓN WiFi =====
-const char* ssid = "TU_WIFI_SSID";
-const char* password = "TU_WIFI_PASSWORD";
+const char* ssid = "Laboratorios_ITZ";
+const char* password = "itzacatepec";
 
 // ===== CONFIGURACIÓN SERVIDORES =====
 WebServer server(80);              // Servidor HTTP en puerto 80
