@@ -1,7 +1,7 @@
 class ESP32Service {
   constructor() {
-    this.baseUrl = 'http://192.168.1.100'; // IP por defecto del ESP32
-    this.wsUrl = 'ws://192.168.1.100:81';
+    this.baseUrl = 'http://192.168.1.100'; // IP por defecto del ESP32 - CAMBIAR POR LA IP REAL
+    this.wsUrl = 'ws://192.168.1.100:81'; // WebSocket no funciona con este código básico
     this.websocket = null;
     this.isConnected = false;
     this.listeners = new Map();

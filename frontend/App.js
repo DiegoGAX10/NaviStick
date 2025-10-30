@@ -5,6 +5,7 @@ import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
 import Dashboard from './src/screens/Dashboard';
 import Settings from './src/screens/Settings';
+import TestConnection from './src/screens/TestConnection';
 
 const Stack = createStackNavigator();
 
@@ -47,6 +48,21 @@ export default function App() {
             options={{
               title: 'Configuración',
               presentation: 'modal',
+            }}
+          />
+          <Stack.Screen 
+            name="TestConnection" 
+            component={TestConnection}
+            options={{
+              title: '🧪 Test Conexión ESP32',
+              headerShown: true,
+              headerStyle: {
+                backgroundColor: '#4CAF50',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
             }}
           />
         </Stack.Navigator>

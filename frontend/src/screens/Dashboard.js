@@ -228,6 +228,14 @@ const Dashboard = ({ navigation }) => {
         {/* Botones de control */}
         <View style={styles.controlButtons}>
           <TouchableOpacity 
+            style={[styles.controlButton, styles.testButton]}
+            onPress={() => navigation.navigate('TestConnection')}
+          >
+            <MaterialIcons name="power" size={20} color="white" />
+            <Text style={styles.controlButtonText}>Test Conexión</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
             style={[styles.controlButton, styles.calibrateButton]}
             onPress={handleCalibrateSystem}
             disabled={!connectionStatus.isConnected}
@@ -384,6 +392,9 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 8,
     marginHorizontal: 4,
+  },
+  testButton: {
+    backgroundColor: '#4CAF50',
   },
   calibrateButton: {
     backgroundColor: '#3498db',
